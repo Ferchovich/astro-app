@@ -1,0 +1,49 @@
+---
+
+import { Image } from 'astro:assets';
+
+interface Props {
+    id: string
+    img: string
+    success: boolean
+    flightNumber: number
+    details: string | null
+}
+
+
+
+
+const { success, img, id, flightNumber, details } = Astro.props
+const successText = success ? "Success" : "Failure"
+---
+
+<a
+    href={`/launch/${id}`}
+    class="rounded-lg shadow-lg overflow-hidden flex flex-col bg-gray-800 hover:bg-gray-700 transition hover:scale-105"
+>
+    <picture class="flex justify-center p-4">
+        <img
+            src={img}
+            alt={`Patch for lauch ${id}`}
+            class="mb-5 rounded-lg"
+        />
+    </picture>
+    <header class="p-4 flex-grow">
+        <span
+            class:list={[
+                "text-xs font-semibold mr-2 px-2.5 py-0.5 rounded",
+                {
+                    "bg-green-500 text-green-100": success,
+                    "bg-red-500 text-red-100": !success
+                }
+            ]}
+        >
+            {successText}
+        </span>
+        <h2 class="my-2 text-2xl font-bold tracking-tight text-white">
+            Flight #{flightNumber}
+        </h2>
+
+        <p class="mb-4 font-normal text-gray-400">{details}</p>
+    </header>
+</a>
